@@ -499,8 +499,8 @@ async function setupController(initState, initLangCode, remoteSourcePort) {
     if (count) {
       label = String(count);
     }
-    // browser.browserAction.setBadgeText({ text: label });
-    // browser.browserAction.setBadgeBackgroundColor({ color: '#037DD6' });
+    browser.browserAction.setBadgeText({ text: label });
+    browser.browserAction.setBadgeBackgroundColor({ color: '#037DD6' });
   }
 
   function getUnapprovedTransactionCount() {
