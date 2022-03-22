@@ -37,12 +37,12 @@ if (shouldInjectProvider()) {
  *
  * @param {string} content - Code to be executed in the current document
  */
-function injectScript(content) {
+function injectScript() {
   try {
     const container = document.head || document.documentElement;
     const scriptTag = document.createElement('script');
-    scriptTag.setAttribute('async', 'false');
-    scriptTag.textContent = content;
+    scriptTag.setAttribute('async', 'true');
+    scriptTag.setAttribute('src', browser.runtime.getURL('inpage.js'));
     container.insertBefore(scriptTag, container.children[0]);
     container.removeChild(scriptTag);
   } catch (error) {
