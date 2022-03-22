@@ -45,6 +45,14 @@ import { getPlatform } from './lib/util';
 const { sentry } = global;
 const firstTimeState = { ...rawFirstTimeState };
 
+const metamaskBlockedPorts = ['trezor-connect'];
+
+const metamaskInternalProcessHash = {
+  [ENVIRONMENT_TYPE_POPUP]: true,
+  [ENVIRONMENT_TYPE_NOTIFICATION]: true,
+  [ENVIRONMENT_TYPE_FULLSCREEN]: true,
+};
+
 log.setDefaultLevel(process.env.METAMASK_DEBUG ? 'debug' : 'info');
 
 const platform = new ExtensionPlatform();
@@ -305,8 +313,6 @@ async function setupController(initState, initLangCode, remoteSourcePort) {
     }
   }
 
-  const metamaskBlockedPorts = ['trezor-connect'];
-
   if (remoteSourcePort) {
     connectRemote(remoteSourcePort);
   }
@@ -317,12 +323,6 @@ async function setupController(initState, initLangCode, remoteSourcePort) {
   browser.runtime.onConnect.removeListener(initApp);
   browser.runtime.onConnect.addListener(connectRemote);
   browser.runtime.onConnectExternal.addListener(connectExternal);
-
-  const metamaskInternalProcessHash = {
-    [ENVIRONMENT_TYPE_POPUP]: true,
-    [ENVIRONMENT_TYPE_NOTIFICATION]: true,
-    [ENVIRONMENT_TYPE_FULLSCREEN]: true,
-  };
 
   const isClientOpenStatus = () => {
     return (
@@ -386,7 +386,7 @@ async function setupController(initState, initLangCode, remoteSourcePort) {
       // communication with popup
       controller.isClientOpen = true;
       controller.setupTrustedCommunication(portStream, remotePort.sender);
-      remotePort.postMessage({ name: 'CONNECTION_READY', data: {} });
+      remotePort.postMessage({ name: 'CONNECTION_READY' });
       if (processName === ENVIRONMENT_TYPE_POPUP) {
         popupIsOpen = true;
         endOfStream(portStream, () => {
