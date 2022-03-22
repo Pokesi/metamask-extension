@@ -214,6 +214,7 @@ const completeImportSRPOnboardingFlow = async (
   } else {
     // clicks the continue button on the welcome screen
     await driver.findElement('.welcome-page__header');
+    await driver.delay(regularDelayMs);
     await driver.clickElement({
       text: enLocaleMessages.getStarted.message,
       tag: 'button',
