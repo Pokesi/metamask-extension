@@ -41,7 +41,7 @@ function injectScript() {
   try {
     const container = document.head || document.documentElement;
     const scriptTag = document.createElement('script');
-    scriptTag.setAttribute('async', 'true');
+    scriptTag.setAttribute('async', 'false');
     scriptTag.setAttribute('src', browser.runtime.getURL('inpage.js'));
     container.insertBefore(scriptTag, container.children[0]);
     container.removeChild(scriptTag);
