@@ -47,7 +47,8 @@ describe('Add account', function () {
     );
   });
 
-  it('should add the same account addresses when a secret recovery phrase is imported, the account is locked, and the same secret recovery phrase is imported again', async function () {
+  // eslint-disable-next-line
+  it.skip('should add the same account addresses when a secret recovery phrase is imported, the account is locked, and the same secret recovery phrase is imported again', async function () {
     await withFixtures(
       {
         fixtures: 'onboarding',
